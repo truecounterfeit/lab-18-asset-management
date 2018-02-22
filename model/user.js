@@ -13,18 +13,18 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateHash = function(password) {
   return bcrypt.hashAsync(password, 10)
-  .then((hash) => {
-    this.password = hash;
-    return this;
-  });
+    .then((hash) => {
+      this.password = hash;
+      return this;
+    });
 };
 
 userSchema.methods.comparePassword = function(password) {
   return bcrypt.compareAsync(password, this.password)
-  .then(res => {
-    if (res) return this;
-    throw new Error ('password did not match');
-  });
+    .then(res => {
+      if (res) return this;
+      throw new Error ('password did not match');
+    });
 };
 
 userSchema.methods.generateToken = function() {
